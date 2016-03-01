@@ -1,0 +1,27 @@
+p {
+  color: tomato;
+}
+
+.apple-market {
+  background-color: red;
+}
+
+.banana-market {
+  background-color: yellow;
+}
+
+.grape-market {
+  background-color: purple;
+}
+
+.orange-market {
+  background-color: orange;
+}
+
+.pear-market {
+  background-color: lime;
+}
+
+.inventory {
+  background-color: gray;
+}
