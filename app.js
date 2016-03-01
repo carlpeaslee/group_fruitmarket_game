@@ -7,11 +7,14 @@ function randomNumber(min, max){
 //the market updates and the interval at which it  updates
 setInterval(updateMarket, 15000);
 
+//these are the variables that hold the market prices of the fruits
 var marketApplePrice = 1;
 var marketBananaPrice = 1;
 var marketGrapePrice = 1;
 var marketOrangePrice = 1;
 var marketPearPrice = 1;
+var marketWatermelonPrice = 1;
+
 
 //this is a function that updates a single fruit market price
 function singleFruitMarketUpdater(fruitMarket){
@@ -27,7 +30,7 @@ function singleFruitMarketUpdater(fruitMarket){
 }
 
 
-//this is the function that runs when the market updates
+//this is the function that updates the market
 function updateMarket() {
   //this part changes the market price of each fruit
   marketApplePrice = singleFruitMarketUpdater(marketApplePrice);
@@ -40,8 +43,8 @@ function updateMarket() {
   $('.orange-price').text(marketOrangePrice);
   marketPearPrice = singleFruitMarketUpdater(marketPearPrice);
   $('.pear-price').text(marketPearPrice);
-
-  console.log(marketApplePrice, marketBananaPrice, marketGrapePrice, marketOrangePrice, marketPearPrice)
+  marketWatermelonPrice = singleFruitMarketUpdater(marketWatermelonPrice);
+  $('.watermelon-price').text(marketWatermelonPrice);
 
 
 }
