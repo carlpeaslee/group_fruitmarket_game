@@ -107,6 +107,17 @@ function buyApple () {
   };
 }
 
+function sellApple() {
+  if (inventory.appleStock > 0) {
+    inventory.appleStock --;
+    inventory.cashOnHand += $('.buy-apple-button').data("applePriceData");
+    //this updates the current cash on hand at the top of the page
+    $('.current-cash').text(inventory.cashOnHand.toFixed(2));
+    //this updates the inventory display
+    $('.apple-inventory-display').text("Apple count: " + inventory.appleStock);
+  }
+}
+
 function buyBanana () {
   currentBananaPrice = $('.buy-banana-button').data("bananaPriceData");
   //this makes it so you can't buy bananas when you don't have enough money
@@ -132,6 +143,18 @@ function buyBanana () {
     $('.avg-banana-price').text("Average Price: $" + averageBananaPrice);
   };
 }
+
+function sellBanana() {
+  if (inventory.bananaStock > 0) {
+    inventory.bananaStock --;
+    inventory.cashOnHand += $('.buy-banana-button').data("bananaPriceData");
+    //this updates the current cash on hand at the top of the page
+    $('.current-cash').text(inventory.cashOnHand.toFixed(2));
+    //this updates the inventory display
+    $('.banana-inventory-display').text("Banana count: " + inventory.bananaStock);
+  }
+}
+
 
 function buyOrange () {
   currentOrangePrice = $('.buy-orange-button').data("orangePriceData");
@@ -159,6 +182,18 @@ function buyOrange () {
   };
 }
 
+function sellOrange() {
+  if (inventory.orangeStock > 0) {
+    inventory.orangeStock --;
+    inventory.cashOnHand += $('.buy-orange-button').data("orangePriceData");
+    //this updates the current cash on hand at the top of the page
+    $('.current-cash').text(inventory.cashOnHand.toFixed(2));
+    //this updates the inventory display
+    $('.orange-inventory-display').text("Orange count: " + inventory.orangeStock);
+  }
+}
+
+
 function buyPear () {
   currentPearPrice = $('.buy-pear-button').data("pearPriceData");
   //this makes it so you can't buy pear when you don't have enough money
@@ -185,6 +220,18 @@ function buyPear () {
   };
 }
 
+function sellPear() {
+  if (inventory.pearStock > 0) {
+    inventory.pearStock --;
+    inventory.cashOnHand += $('.buy-pear-button').data("pearPriceData");
+    //this updates the current cash on hand at the top of the page
+    $('.current-cash').text(inventory.cashOnHand.toFixed(2));
+    //this updates the inventory display
+    $('.pear-inventory-display').text("Pear count: " + inventory.pearStock);
+  }
+}
+
+
 
 $(document).ready(function(){
   //makes sure that the current cash on hand displayed on the dom matches the object
@@ -201,5 +248,11 @@ $(document).ready(function(){
 
   $('.buy-pear-button').data("pearPriceData", marketPearPrice);
   $('.buy-pear-button').on('click', buyPear);
+
+  $('.sell-apple-button').on('click', sellApple);
+  $('.sell-banana-button').on('click', sellBanana);
+  $('.sell-orange-button').on('click', sellOrange);
+  $('.sell-pear-button').on('click', sellPear);
+
 
 });
