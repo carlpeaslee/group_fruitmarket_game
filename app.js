@@ -5,14 +5,14 @@ function randomNumber(min, max){
 
 //this is what controlls which function runs when
 //the market updates and the interval at which it  updates
-setInterval(updateMarket, 1500);
+var marketFluctuator = setInterval(updateMarket, 15000);
 
 //these are the variables that hold the market prices of the fruits
-var marketApplePrice = 1.00;
-var marketBananaPrice = 1.00;
+var marketApplePrice = 4.00;
+var marketBananaPrice = 5.00;
 var marketGrapePrice = 1.00;
-var marketOrangePrice = 1.00;
-var marketPearPrice = 1.00;
+var marketOrangePrice = 3.00;
+var marketPearPrice = 7.00;
 var marketWatermelonPrice = 1.00;
 
 
@@ -231,11 +231,49 @@ function sellPear() {
   }
 }
 
+var count = 301;
+var timer = setInterval(timerFunction, 1000);
+function timerFunction() {
+  count--;
+  $('.timer').text(count + " seconds left");
+  if (count == 0) {
+    clearInterval(timer);
+    clearInterval(marketFluctuator);
+
+
+    inventory.cashOnHand += inventory.appleStock * $('.buy-apple-button').data("applePriceData");
+    inventory.appleStock = 0;
+    //this updates the inventory display
+    $('.apple-inventory-display').text("Apple count: " + inventory.appleStock);
+
+
+    inventory.cashOnHand += inventory.bananaStock * $('.buy-banana-button').data("bananaPriceData");
+    inventory.bananaStock = 0;
+    $('.banana-inventory-display').text("Banana count: " + inventory.bananaStock);
+
+    inventory.cashOnHand += inventory.orangeStock * $('.buy-orange-button').data("orangePriceData");
+    inventory.orangeStock = 0;
+    $('.orange-inventory-display').text("Orange count: " + inventory.orangeStock);
+
+    inventory.cashOnHand += inventory.pearStock * $('.buy-pear-button').data("pearPriceData");
+    inventory.pearStock = 0;
+    $('.pear-inventory-display').text("Pear count: " + inventory.pearStock);
+
+    $('button').hide();
+
+    $('.current-cash').text(inventory.cashOnHand.toFixed(2));
+
+  }
+
+}
+
 
 
 $(document).ready(function(){
+
+  timerFunction();
   //makes sure that the current cash on hand displayed on the dom matches the object
-  $('.current-cash').text(inventory.cashOnHand);
+  // $('.current-cash').text(inventory.cashOnHand);
 
   $('.buy-apple-button').data("applePriceData", marketApplePrice);
   $('.buy-apple-button').on('click', buyApple);
