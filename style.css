@@ -1,29 +1,29 @@
 p {
-  color: tomato;
+  color: white;
 }
 
 .apple-market {
-  background-color: red;
+  background-color: #b0131b;
 }
 
 .banana-market {
-  background-color: yellow;
+  background-color: #edce2b;
 }
 
 .grape-market {
-  background-color: purple;
+  background-color: #35203b;
 }
 
 .orange-market {
-  background-color: orange;
+  background-color: #ed8c2b;
 }
 
 .pear-market {
-  background-color: lime;
+  background-color: #88a825;
 }
 
 .watermelon-market {
-  background-color: magenta;
+  background-color: #c93a61;
 }
 
 .inventory {
