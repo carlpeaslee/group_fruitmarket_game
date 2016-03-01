@@ -8,12 +8,12 @@ function randomNumber(min, max){
 setInterval(updateMarket, 1500);
 
 //these are the variables that hold the market prices of the fruits
-var marketApplePrice = 1;
-var marketBananaPrice = 1;
-var marketGrapePrice = 1;
-var marketOrangePrice = 1;
-var marketPearPrice = 1;
-var marketWatermelonPrice = 1;
+var marketApplePrice = 1.00;
+var marketBananaPrice = 1.00;
+var marketGrapePrice = 1.00;
+var marketOrangePrice = 1.00;
+var marketPearPrice = 1.00;
+var marketWatermelonPrice = 1.00;
 
 
 //this is a function that updates a single fruit market price
@@ -34,18 +34,24 @@ function singleFruitMarketUpdater(fruitMarket){
 function updateMarket() {
   //this part changes the market price of each fruit
   marketApplePrice = singleFruitMarketUpdater(marketApplePrice);
-  $('.apple-price').text(marketApplePrice);
+  $('.apple-price').text(marketApplePrice.toFixed(2));
   $('.buy-apple-button').data("applePriceData", marketApplePrice);
+
   marketBananaPrice = singleFruitMarketUpdater(marketBananaPrice);
-  $('.banana-price').text(marketBananaPrice);
-  marketGrapePrice = singleFruitMarketUpdater(marketGrapePrice);
-  $('.grape-price').text(marketGrapePrice);
+  $('.banana-price').text(marketBananaPrice.toFixed(2));
+  $('.buy-banana-button').data("bananaPriceData", marketBananaPrice);
+
+  // marketGrapePrice = singleFruitMarketUpdater(marketGrapePrice);
+  // $('.grape-price').text(marketGrapePrice);
   marketOrangePrice = singleFruitMarketUpdater(marketOrangePrice);
-  $('.orange-price').text(marketOrangePrice);
+  $('.orange-price').text(marketOrangePrice.toFixed(2));
+  $('.buy-orange-button').data("orangePriceData", marketOrangePrice);
+
   marketPearPrice = singleFruitMarketUpdater(marketPearPrice);
-  $('.pear-price').text(marketPearPrice);
-  marketWatermelonPrice = singleFruitMarketUpdater(marketWatermelonPrice);
-  $('.watermelon-price').text(marketWatermelonPrice);
+  $('.pear-price').text(marketPearPrice.toFixed(2));
+  $('.buy-pear-button').data("pearPriceData", marketPearPrice);
+  // marketWatermelonPrice = singleFruitMarketUpdater(marketWatermelonPrice);
+  // $('.watermelon-price').text(marketWatermelonPrice);
 
 };
 
@@ -55,13 +61,13 @@ var inventory = {
   bananaStock: 0,
   grapeStock: 0,
   orangeStock: 0,
-  pearsStock: 0,
+  pearStock: 0,
   watermelonStock: 0,
   applePrices: [],
-  bananasPrices: [],
-  grapesPrices: [],
-  orangesPrices: [],
-  pearsPrices: [],
+  bananaPrices: [],
+  grapePrices: [],
+  orangePrices: [],
+  pearPrices: [],
   watermelonPrices: [],
 };
 
@@ -101,6 +107,83 @@ function buyApple () {
   };
 }
 
+function buyBanana () {
+  currentBananaPrice = $('.buy-banana-button').data("bananaPriceData");
+  //this makes it so you can't buy bananas when you don't have enough money
+  if (inventory.cashOnHand < currentBananaPrice) {
+     console.log("YOU CANT BUY THAT");
+     //TODO add an alert telling the user they cant
+  } else {
+    //this adds an apple to our stock of bananas
+    inventory.bananaStock ++;
+    //this adds the purchase price to our array of banana prices
+    inventory.bananaPrices.push(currentBananaPrice);
+    //this subtracts the current banana price from our cash on hand
+    inventory.cashOnHand -= currentBananaPrice;
+    //this will append the price of the last banana purchased to your inventory
+    $('.banana-inventory').append('<p>Banana purchased for: $' + currentBananaPrice.toFixed(2) + '</p>')
+    //this updates the current cash on hand at the top of the page
+    $('.current-cash').text(inventory.cashOnHand.toFixed(2));
+    //this updates the inventory display
+    $('.banana-inventory-display').text("Banana count: " + inventory.bananaStock);
+    //this creates a variable that is the average apple price in inventory
+    var averageBananaPrice = averagePrice(inventory.bananaPrices).toFixed(2);
+    //this appends that average to your inventory
+    $('.avg-banana-price').text("Average Price: $" + averageBananaPrice);
+  };
+}
+
+function buyOrange () {
+  currentOrangePrice = $('.buy-orange-button').data("orangePriceData");
+  //this makes it so you can't buy organge when you don't have enough money
+  if (inventory.cashOnHand < currentOrangePrice) {
+     console.log("YOU CANT BUY THAT");
+     //TODO add an alert telling the user they cant
+  } else {
+    //this adds an orange to our stock of orange
+    inventory.orangeStock ++;
+    //this adds the purchase price to our array of orange prices
+    inventory.orangePrices.push(currentOrangePrice);
+    //this subtracts the current orange price from our cash on hand
+    inventory.cashOnHand -= currentOrangePrice;
+    //this will append the price of the last orange purchased to your inventory
+    $('.orange-inventory').append('<p>Orange purchased for: $' + currentOrangePrice.toFixed(2) + '</p>')
+    //this updates the current cash on hand at the top of the page
+    $('.current-cash').text(inventory.cashOnHand.toFixed(2));
+    //this updates the inventory display
+    $('.orange-inventory-display').text("Orange count: " + inventory.orangeStock);
+    //this creates a variable that is the average apple price in inventory
+    var averageOrangePrice = averagePrice(inventory.orangePrices).toFixed(2);
+    //this appends that average to your inventory
+    $('.avg-orange-price').text("Average Price: $" + averageOrangePrice);
+  };
+}
+
+function buyPear () {
+  currentPearPrice = $('.buy-pear-button').data("pearPriceData");
+  //this makes it so you can't buy pear when you don't have enough money
+  if (inventory.cashOnHand < currentPearPrice) {
+     console.log("YOU CANT BUY THAT");
+     //TODO add an alert telling the user they cant
+  } else {
+    //this adds an pear to our stock of pear
+    inventory.pearStock ++;
+    //this adds the purchase price to our array of pear prices
+    inventory.pearPrices.push(currentPearPrice);
+    //this subtracts the current pear price from our cash on hand
+    inventory.cashOnHand -= currentPearPrice;
+    //this will append the price of the last pear purchased to your inventory
+    $('.pear-inventory').append('<p>Pear purchased for: $' + currentPearPrice.toFixed(2) + '</p>')
+    //this updates the current cash on hand at the top of the page
+    $('.current-cash').text(inventory.cashOnHand.toFixed(2));
+    //this updates the inventory display
+    $('.pear-inventory-display').text("Pear count: " + inventory.pearStock);
+    //this creates a variable that is the average pear price in inventory
+    var averagePearPrice = averagePrice(inventory.pearPrices).toFixed(2);
+    //this appends that average to your inventory
+    $('.avg-pear-price').text("Average Price: $" + averagePearPrice);
+  };
+}
 
 
 $(document).ready(function(){
@@ -109,5 +192,14 @@ $(document).ready(function(){
 
   $('.buy-apple-button').data("applePriceData", marketApplePrice);
   $('.buy-apple-button').on('click', buyApple);
+
+  $('.buy-banana-button').data("bananaPriceData", marketBananaPrice);
+  $('.buy-banana-button').on('click', buyBanana);
+
+  $('.buy-orange-button').data("orangePriceData", marketOrangePrice);
+  $('.buy-orange-button').on('click', buyOrange);
+
+  $('.buy-pear-button').data("pearPriceData", marketPearPrice);
+  $('.buy-pear-button').on('click', buyPear);
 
 });

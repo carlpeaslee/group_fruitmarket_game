@@ -1,6 +1,4 @@
-p {
-  color: white;
-}
+
 
 .apple-market {
   background-color: #b0131b;
@@ -24,8 +22,4 @@ p {
 
 .watermelon-market {
   background-color: #c93a61;
-}
-
-.inventory {
-  background-color: gray;
 }
